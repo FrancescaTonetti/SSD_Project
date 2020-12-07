@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SsdWebApi Indici client</title>
+<link rel="stylesheet" type="text/css" href="client.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="client.js"> </script>
+</head>
+<body onload="init()">
+<h1>SsdWebApi Indici client</h1>
+<div>
+<textarea id="txtarea" rows="8" cols="50"> </textarea>
+</div>
+<div>
+<input type="button" value="Read all" onclick="findAll();" />
+<input type="button" value="Read by id" onclick="findById();" />
+</div>
+<div>IdSerie: <input type="number" id="txtId" size="10">
+</div>
+</body>
+</html>
