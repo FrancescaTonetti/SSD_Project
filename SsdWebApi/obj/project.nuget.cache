@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uVj+84u0FIK4ZMKImhl9D300fSh1pin/d9QNzmbGeXI/v8zxY6dRL4hwoz6yBfN19yP/aGgQajWaq7GyI1sFCw==",
+  "dgSpecHash": "S1+FnAcIUGJIbSxJz33xy2gU5Mg7p0VdCpSZMq3MN6gq9uTn1SNkESnNCR+L80gumFdyGu8xymJquzXGEqU+VQ==",
   "success": true,
-  "projectFilePath": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/0.Laboratorio/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj",
+  "projectFilePath": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/SSDProject/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj",
   "expectedPackageFiles": [
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.cors/2.2.0/microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.html.abstractions/2.2.0/microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

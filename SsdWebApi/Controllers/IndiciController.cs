@@ -23,27 +23,23 @@ namespace SsdWebApi.Controllers
             persistence = new Persistence(context);
         }
 
+
+        //GET by ID action: es. https://localhost:5001/api/indici  --> togliere ID
         [HttpGet]
-        public ActionResult<List<Indici>> GetAll() => _context.indici.ToList();
-
-
-        //GET by ID action: es. https://localhost:5001/api/indici/3
-        [HttpGet("{idSerie}", Name = "GetSerie")]
-        public string GetSerie(int idSerie)
+        public string GetSerie()
         {
-            if (idSerie > 8)
-            {
-                idSerie = 8;
-            }
 
             string res = "{";
             string[] indiciSerie = new string[] { "SP_500", "FTSE_MIB", "GOLD_SPOT", "MSCI_EM", "MSCI_EURO", "All_Bonds", "US_Treasury" };
-            string attribute = indiciSerie[idSerie];
 
-            persistence.ReadColumnIndexAndCsv(attribute);
+            //non gli passo più l'indice per cui devo ciclare un foreach su indiciserie e li passo alla read e generare tutti i csv
+            foreach(string indici in indiciSerie)
+            {
+                persistence.ReadColumnIndexAndCsv(indici);
+            }
 
             Forecast forecast = new Forecast();
-            res += forecast.forecastIndici(attribute);
+            res += forecast.forecastIndici();
             res += "}";
 
             return res;

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/0.Laboratorio/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj": {}
+    "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/SSDProject/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj": {}
   },
   "projects": {
-    "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/0.Laboratorio/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj": {
+    "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/SSDProject/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/0.Laboratorio/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj",
+        "projectUniqueName": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/SSDProject/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj",
         "projectName": "SsdWebApi",
-        "projectPath": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/0.Laboratorio/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj",
+        "projectPath": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/SSDProject/ProgettoFinanziario/SsdWebApi/SsdWebApi.csproj",
         "packagesPath": "/Users/francescatonetti/.nuget/packages/",
-        "outputPath": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/0.Laboratorio/ProgettoFinanziario/SsdWebApi/obj/",
+        "outputPath": "/Users/francescatonetti/Desktop/Università/2°Anno Magistrale/Sistemi Supporto Decisioni/SSDProject/ProgettoFinanziario/SsdWebApi/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
