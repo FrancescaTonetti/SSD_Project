@@ -54,8 +54,8 @@ if __name__ == "__main__":
        
        
        """Uso la funzione plot() per visualizzare in un grafo bidimensionale (x: tempo, y:valori) la serie storica di interesse"""
-       plt.plot(dataset) #visualizzo tutto il mio dataset (intera serie storica di dati)
-       plt.show()
+       #plt.plot(dataset) #visualizzo tutto il mio dataset (intera serie storica di dati)
+       #plt.show()
        
        """
        Fase di pre-processing:
@@ -74,9 +74,9 @@ if __name__ == "__main__":
        dataset_base, dataset_forecast = dataset[:-forecast_size], dataset[-forecast_size:]
        
        """Visualizzo la nuova serie storica distinguendo tra i dati del dataset di base e quelli di forecast"""
-       plt.plot(dataset_base)
-       plt.plot(np.concatenate((np.full(len(dataset_base),np.nan), dataset_forecast[:,0])))
-       plt.show()
+       #plt.plot(dataset_base)
+       #plt.plot(np.concatenate((np.full(len(dataset_base),np.nan), dataset_forecast[:,0])))
+       #plt.show()
    
        """
        Fase di previsione del dataset:
@@ -87,23 +87,23 @@ if __name__ == "__main__":
        Questa volta utilizzando il modulo scatter che, a differenza del plot, 
        disegna la serie attraverso dei puntini nel grafo bidimensionale, senza linee che li colleghino
        """
-       plt.scatter(X, y, s=1, color='blue')
-       plt.scatter(X2, y2, s=1, color='red')
-       plt.show()
+       #plt.scatter(X, y, s=1, color='blue')
+       #plt.scatter(X2, y2, s=1, color='red')
+       #plt.show()
    
        """Visualizzo il grafo precedente al quale aggiungo il valore di predizione resitutito dall'algoritmo SVR, 
        come linea continua su tutto il dataset
        """
-       plt.scatter(X, y, s=1, color='blue')
-       plt.scatter(X2, y2, s=1, color='red')
-       plt.plot(X_grid, prediction, color='orange')
-       plt.show()
+       #plt.scatter(X, y, s=1, color='blue')
+       #plt.scatter(X2, y2, s=1, color='red')
+       #plt.plot(X_grid, prediction, color='orange')
+       #plt.show()
     
        dataset = sc_dataset.inverse_transform(dataset) #Annullo il ridimensionamento del mio dataset.
        prediction = sc_dataset.inverse_transform(prediction) #Annullo il ridimensionamento sui dati predetti.
-       plt.plot(dataset)
-       plt.plot(prediction)
-       plt.show()
+       #plt.plot(dataset)
+       #plt.plot(prediction)
+       #plt.show()
        
        """Calcolo i soli valori predetti relativi ai dati di forecast (finestra di previsione)"""
        predictForecast = prediction[-forecast_size:]
