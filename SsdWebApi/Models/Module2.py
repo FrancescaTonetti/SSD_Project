@@ -16,14 +16,6 @@ def algorithmSvr(dataset_base,dataset_forecast):
    X = list(range(len(dataset_base)))
    X = np.array(X).astype('float32')
    
-   """-->Altra versione in cui prendo solo la parte centrale del dataset"""
-   """
-   dataset_base = dataset_base[-2000:]
-   y = dataset_base
-   X = list(range(len(dataset_base)))
-   X = np.array(X).astype('float32')
-   """
-   
    """Definisco X2 e y2 a partire dai miei dati del dataset_forecast (finestra di previsione)"""
    #nuovo range di indici del forecast --> indici che vanno dalla len del dataset_base alla len del forecast
    y2 = dataset_forecast
@@ -50,8 +42,8 @@ def algorithmSvr(dataset_base,dataset_forecast):
    
    return X, y, X2, y2, X_grid, prediction
 
-    
-def computePortfolioDiff(valPort):
+"""Funzione che mi permette di calcolare un vettore contenente la variazione normalizzata dei valori assunti dal portafoglio"""
+def computeVar(valPort):
   variazPort = []
   i = 1
   while i < len(valPort):

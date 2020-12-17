@@ -12,7 +12,7 @@ namespace SsdWebApi.Models
 
         public string forecastIndici()
         {
-            string res = "\"text\":\"";
+            string res = "";
             string interpreter = @"/opt/anaconda3/bin/python";            
             string environment = "opanalytics";
 

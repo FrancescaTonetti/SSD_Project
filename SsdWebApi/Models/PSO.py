@@ -12,8 +12,8 @@ import math as mt
 
 #Funzione chiamata dal mio Modulo1
 def takeDataSet(dataset):
-    num_iter = 10
-    pop_size = 14
+    num_iter = 100 #1000 o prova con 100 e 30
+    pop_size = 30
     nhood_size = 10
    
     return goPSO(num_iter, pop_size, nhood_size, dataset) #chiamo la funzione goPSO
@@ -23,18 +23,14 @@ def goPSO(num_iter, pop_size, nhood_size, dataset):
     
     dimensioni = 7 #dimensioni --> 7 indici a disposizione
     #punti dello spazio di ricerca, ogni punto nello spazio è una possibile config del portafoglio
-    xmin = 5 #5 (0.05) -->
-    xmax = 100 #100
+    xmin = 5 #5 (0.05)
+    xmax = 100 #100 (1)
     
     capitale = 100000
-    
-    #Imposto i pesi che avrà la mia funzione obiettivo.
-    w1 = 0.7
-    w2 = 0.3
         
     #Run PSO algorithm
-    PSO = ParSwarmOpt(xmin, xmax, capitale, dataset, w1, w2)
-    res = PSO.pso_solve(pop_size, dimensioni, num_iter, nhood_size, w1, w2)
+    PSO = ParSwarmOpt(xmin, xmax, capitale, dataset)
+    res = PSO.pso_solve(pop_size, dimensioni, num_iter, nhood_size)
     return res; #risultato di ritorno del mio PSO messo in funzione <<-- risultato di ritorno al modulo1
     
 
@@ -90,11 +86,12 @@ def funRisk(valorePortafoglio):
     return stdev
         
 #Calcolo della funzione obiettivo    
-def funObiettivo(w1, w2, ret, risk):
-    return w1*ret - w2*risk #alfa*ret - (1-alfa)*rischio
+def funObiettivo(ret, risk):
+    alfa = rnd.uniform(0, 1)
+    return alfa*ret - (1-alfa)*risk #alfa*ret + (1-alfa)*rischio
 
 
-def compute_fitness(pop, capitale, dataset, w1, w2):
+def compute_fitness(pop, capitale, dataset):
     #return paraboloid(pos);
     calcoloCapitali = []
     
@@ -129,12 +126,14 @@ def compute_fitness(pop, capitale, dataset, w1, w2):
     #print("return:{0} e rischio:{1}".format(ret, risk))
     
     #Applico la funzione obiettivo i cui pesi scelgo che sia l'utente a modificarli in base a quanto rischio vogliono applicare
-    return funObiettivo(w1, w2, ret, risk)
+    return funObiettivo(ret, risk)
     
-def calculatePop(pop, newPop, xmin, xmax):
+def calculatePop(pop, newPop, xmin, xmax, dimension):
+    dimension = dimension-1
+    size = len(newPop)
     sumPop = sum(newPop) #sommo le nuove posizioni
-    sumPop = (xmax/100) - sumPop #sottraggo al mio valore massimo
-    pop = rnd.uniform((xmin/100), sumPop)
+    newSumPop = (xmax/100) - sumPop - ((dimension-size)* (xmin/100)) #sottraggo al mio valore massimo
+    pop = rnd.uniform((xmin/100), newSumPop)
     newPop.append(pop)
     return pop  
 
@@ -152,7 +151,7 @@ class Particle:
 class ParSwarmOpt:
     
     """PSO"""
-    def __init__(self, _xmin, _xmax, capitale, dataset, w1, w2):
+    def __init__(self, _xmin, _xmax, capitale, dataset):
         self.c0 = 0.25 #coefficiente di velocità
         self.c1 = 1.5
         self.c2 = 2.0
@@ -161,16 +160,14 @@ class ParSwarmOpt:
         self.xmax = _xmax
         self.capitale = capitale
         self.dataset = dataset
-        self.w1 = w1
-        self.w2 = w2 
         self.xsolbest = np.zeros(7, dtype=np.float) #passare alla init la dimensione
     
-    def pso_solve(self, pop_size, dimension, num_iter, nhood_size, w1, w2):
+    def pso_solve(self, pop_size, dimension, num_iter, nhood_size):
         rnd.seed(550)
         
         #inizializzo 
         pop = []
-    
+        newPop = []
         
         for i in range(pop_size):
             p = Particle(dimension, nhood_size) #genero la popolazione iniziale
@@ -179,18 +176,18 @@ class ParSwarmOpt:
         for i in range(pop_size):
             #inizializzo posizione e velocità (casuale)
             for j in range(dimension):
-                pop[i].x[j] = rnd.randrange(0,100,5) / 100 #5 corrisponde al passo/salto tra un numero random all'altro
+                pop[i].x[j] = calculatePop(pop[i].x[j], newPop, self.xmin, self.xmax, dimension)
                 pop[i].v[j] = (rnd.random()-rnd.random()) * 0.5 * ((self.xmax/100)-(self.xmin/100))-(self.xmin/100)     
             
             #posizione delle particelle, configurazione inizale del portafoglio
-            pop[i].x = np.array([0.05, 0.05, 0.2, 0.1, 0.05, 0.3, 0.25]) #Da cancellare!!!!!!!!!!!!!!!!!!! perchè inizialmente ho posizioni randomiche ma la cui somma è 1
+            #pop[i].x = np.array([0.05, 0.05, 0.2, 0.1, 0.05, 0.3, 0.25]) #Da cancellare!!!!!!!!!!!!!!!!!!! perchè inizialmente ho posizioni randomiche ma la cui somma è 1
             
-            pop[i].x /= pop[i].x.sum()
+            #pop[i].x /= pop[i].x.sum() #faccio in modo che il risultato delle posizioni ovvero del portafoglio sia 1 al massimo.
             pop[i].pbest = pop[i].x
             pop[i].lbest = pop[i].x
             
             #inizializzo le fitness
-            pop[i].fit = compute_fitness(pop[i].x, self.capitale, self.dataset, w1, w2)
+            pop[i].fit = compute_fitness(pop[i].x, self.capitale, self.dataset)
             pop[i].gbest = pop[i].fit
             
             #inizializzo i figli(neighbothood) inserendo casualmente gli altri elementi
@@ -200,7 +197,7 @@ class ParSwarmOpt:
                     id = rnd.randrange(pop_size)
                 else:
                     pop[i].nset[j] = id;
-                    
+            newPop = []        
                     
         #mando il ciclo ripetuto num_iter volte
         for iter in range(num_iter):
@@ -208,7 +205,6 @@ class ParSwarmOpt:
             #Aggiorno le particelle
             for i in range(pop_size):
                 #per ciascuna dimensione
-                newPop = []
                 for d in range(dimension):
                     #coefficienti stocastici
                     rho1 = self.c1 * rnd.random()
@@ -221,21 +217,12 @@ class ParSwarmOpt:
                     pop[i].x[d] += pop[i].v[d]
                     
                     #chiamo la funzione
-                    pop[i].x[d] = calculatePop(pop[i].x[d], newPop, self.xmin, self.xmax)
-                    pop[i].v[d] = -pop[i].v[d];
+                    pop[i].x[d] = calculatePop(pop[i].x[d], newPop, self.xmin, self.xmax, dimension)
+                    #pop[i].v[d] += pop[i].v[d]; --> += o = - ? come cambia la sua velocità?
                     
-                    
-                    """
-                    #clamp position within bounds
-                    if(pop[i].x[d] < self.xmin):
-                       pop[i].x[d] = self.xmin;
-                       pop[i].v[d] = -pop[i].v[d];
-                    elif(pop[i].v[d] > self.xmax):
-                       pop[i].x[d] = self.xmax;
-                       pop[i].v[d] = -pop[i].v[d];
-                    """
+                
                 #Aggiorno la fitness delle particelle
-                pop[i].fit = compute_fitness(pop[i].x, self.capitale, self.dataset, w1, w2)
+                pop[i].fit = compute_fitness(pop[i].x, self.capitale, self.dataset)
                 
                 #Aggiorno la personal best posizion, min
                 if (pop[i].fit < pop[i].gbest):
@@ -259,6 +246,7 @@ class ParSwarmOpt:
                     #copio la posizione della particelle al vettore gbest
                     for j in range(dimension):
                         self.xsolbest[j] = pop[i].x[j]
+            newPop = [] 
                         
         #Ritorno il risultato
         return self.xsolbest;
