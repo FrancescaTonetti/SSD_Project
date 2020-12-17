@@ -49,7 +49,7 @@ if __name__ == "__main__":
    
    """Ciclicamente estraggo un file csv, relativo ad un indice specifico di borsa, e inserisco i valori in un array"""
    for dffile in files:
-       df = pd.read_csv("./"+dffile) # leggo il contenuto del file
+       df = pd.read_csv("../"+dffile) # leggo il contenuto del file
        dataset = df.values.astype('float32') #estraggo i dati, e indico il tipo (necessario per tensorflow) -- array
        
        

@@ -9,6 +9,10 @@ Created on Sat Dec 12 11:26:39 2020
 import numpy as np
 from sklearn.svm import SVR
 
+"""
+Fase di Previsione:
+    
+"""
 def algorithmSvr(dataset_base,dataset_forecast):
    
    """Definisco X e y a partire dai miei dati del dataset_base"""

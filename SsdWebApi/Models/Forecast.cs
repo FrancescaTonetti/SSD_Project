@@ -22,7 +22,7 @@ namespace SsdWebApi.Models
 
             try
             {
-                string command = $"Module1.py";
+                string command = $"Models/Module1.py";
                 string list = pythonRunner.runDosCommands(command);
 
                 if (string.IsNullOrWhiteSpace(list))
